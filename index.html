@@ -1,1 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clínica de Estética Tainá Marques</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600;1,700&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --white:#ffffff;
+  --cream:#faf9f7;
+  --blush:#f5eeeb;
+  --graphite:#1e1c1a;
+  --graphite-soft:#5a5550;
+  --line:rgba(30,28,26,.1);
+  --wine:#7a1b30;
+  --wine-light:#a83347;
+  --wine-glow:rgba(122,27,48,.15);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--white);color:var(--graphite);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+img{display:block;max-width:100%;}
 
+/* ────── LOADER ────── */
+#loader{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--white);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
+  transition:opacity .7s ease,visibility .7s ease;
+}
+#loader.done{opacity:0;visibility:hidden;}
+.ld-logo{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;
+  font-size:clamp(22px,3vw,30px);letter-spacing:.04em;color:var(--graphite);opacity:.85;
+}
+.ld-track{width:180px;height:2px;background:rgba(30,28,26,.12);border-radius:99px;overflow:hidden;}
+.ld-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--wine),var(--wine-light));border-radius:99px;}
+.ld-caption{
+  font-family:'Jost',sans-serif;font-weight:300;font-size:13px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--graphite-soft);
+}
+
+/* ────── NAV ────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:0 clamp(20px,5vw,70px);height:68px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(255,255,255,.88);backdrop-filter:blur(14px);
+  border-bottom:1px solid transparent;
+  transition:border-color .3s;
+}
+nav.scrolled{border-color:var(--line);}
+.nav-brand{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;
+  font-size:clamp(16px,1.6vw,20px);letter-spacing:.02em;color:var(--graphite);
+  text-decoration:none;
+}
+.nav-brand em{color:var(--wine);font-style:normal;}
+.nav-links{display:flex;gap:clamp(20px,3vw,40px);list-style:none;}
+.nav-links a{
+  font-family:'Jost',sans-serif;font-weight:400;font-size:13px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--graphite-soft);
+  text-decoration:none;transition:color .25s;
+}
+.nav-links a:hover{color:var(--wine);}
+.nav-cta{
+  font-family:'Jost',sans-serif;font-weight:500;font-size:12px;
+  letter-spacing:.14em;text-transform:uppercase;
+  padding:10px 22px;border:1.5px solid var(--wine);
+  color:var(--wine);text-decoration:none;
+  transition:background .25s,color .25s;
+}
+.nav-cta:hover{background:var(--wine);color:var(--white);}
+@media(max-width:720px){.nav-links{display:none;}}
+
+/* ────── HERO ────── */
+#hero{
+  min-height:100vh;padding-top:68px;
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:end;overflow:hidden;
+  background:var(--white);
+}
+.hero-text{
+  padding:clamp(40px,7vw,90px) clamp(24px,5vw,80px) clamp(40px,6vw,80px);
+  display:flex;flex-direction:column;gap:0;
+  align-self:center;
+}
+.h-eyebrow{
+  font-family:'Jost',sans-serif;font-weight:300;font-size:clamp(11px,.5vw+9px,14px);
+  letter-spacing:.28em;text-transform:uppercase;color:var(--graphite-soft);
+  margin-bottom:clamp(14px,2vw,22px);
+}
+/* ────── TRUST BAR (avaliação · aberto/fechado · instagram · local) ────── */
+.trust-bar{
+  display:flex;align-items:center;flex-wrap:wrap;gap:12px 18px;
+  margin-bottom:clamp(16px,2.2vw,24px);
+}
+.tb-rating{display:flex;align-items:center;gap:7px;}
+.tb-stars{display:flex;gap:2px;}
+.tb-stars .star{
+  width:15px;height:15px;fill:var(--wine);
+  opacity:0;transform:scale(.3) rotate(-18deg);
+  transition:opacity .5s var(--ease),transform .5s var(--ease);
+}
+.trust-bar.in .tb-stars .star{opacity:1;transform:scale(1) rotate(0deg);}
+.tb-stars .star:nth-child(1){transition-delay:.05s;}
+.tb-stars .star:nth-child(2){transition-delay:.15s;}
+.tb-stars .star:nth-child(3){transition-delay:.25s;}
+.tb-stars .star:nth-child(4){transition-delay:.35s;}
+.tb-stars .star:nth-child(5){transition-delay:.45s;}
+.tb-score{font-family:'Jost',sans-serif;font-weight:500;font-size:13px;letter-spacing:.02em;color:var(--graphite);}
+.tb-reviews{font-family:'Jost',sans-serif;font-weight:300;font-size:12px;color:var(--graphite-soft);}
+.tb-sep{width:1px;height:14px;background:var(--line);}
+.tb-status{display:flex;align-items:center;gap:6px;font-family:'Jost',sans-serif;font-weight:300;font-size:12px;color:var(--graphite-soft);}
+.tb-dot{width:7px;height:7px;border-radius:50%;background:#8fbf82;box-shadow:0 0 0 3px rgba(143,191,130,.25);flex-shrink:0;}
+.tb-dot.closed{background:#c9705f;box-shadow:0 0 0 3px rgba(201,112,95,.22);}
+.tb-link{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Jost',sans-serif;font-weight:300;font-size:12px;color:var(--graphite-soft);
+  text-decoration:none;transition:color .2s;
+}
+.tb-link:hover{color:var(--wine);}
+.tb-link svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.6;flex-shrink:0;}
+@media(max-width:560px){.trust-bar{gap:9px 14px;}.tb-sep{display:none;}}
+.h-title{
+  font-family:'Cormorant Garamond',serif;font-weight:300;line-height:.92;
+  font-size:clamp(52px,9vw,124px);color:var(--graphite);
+}
+.h-title em{font-style:italic;color:var(--wine);font-weight:500;}
+.h-sub{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:clamp(16px,1.4vw,20px);color:var(--graphite-soft);
+  margin-top:clamp(16px,2vw,26px);max-width:34ch;line-height:1.6;
+}
+.h-actions{margin-top:clamp(22px,3vw,38px);display:flex;gap:14px;flex-wrap:wrap;}
+.btn-primary{
+  font-family:'Jost',sans-serif;font-weight:500;font-size:12px;
+  letter-spacing:.16em;text-transform:uppercase;padding:14px 32px;
+  background:var(--wine);color:var(--white);text-decoration:none;
+  transition:background .25s;
+}
+.btn-primary:hover{background:var(--wine-light);}
+.btn-ghost{
+  font-family:'Jost',sans-serif;font-weight:400;font-size:12px;
+  letter-spacing:.16em;text-transform:uppercase;padding:14px 32px;
+  border:1.5px solid var(--line);color:var(--graphite);text-decoration:none;
+  transition:border-color .25s;
+}
+.btn-ghost:hover{border-color:var(--graphite);}
+
+/* foto hero */
+.hero-photo{
+  position:relative;height:100%;min-height:560px;
+  display:flex;align-items:flex-end;justify-content:center;
+  overflow:hidden;
+}
+/* brilho decorativo atrás da modelo, não mais por cima do rosto/cabeça */
+.hero-glow{
+  position:absolute;z-index:0;pointer-events:none;
+  top:6%;right:8%;width:62%;height:58%;
+  background:radial-gradient(circle,var(--wine-glow) 0%,rgba(122,27,48,.06) 45%,transparent 72%);
+  filter:blur(6px);
+  opacity:0;
+  transition:opacity 1.4s var(--ease),transform 1.4s var(--ease);
+  transform:scale(.85);
+}
+.hero-photo.cycling .hero-glow{opacity:1;transform:scale(1);}
+.hero-photo::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,var(--white) 0%,transparent 16%);
+  z-index:2;pointer-events:none;
+}
+.hero-photo::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom,transparent 78%,var(--white) 100%);
+  z-index:2;pointer-events:none;
+}
+.hero-photo img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:contain;object-position:50% 100%;
+  transition:opacity .8s ease;z-index:1;
+}
+.hp-a{opacity:1;}
+.hp-b{opacity:0;}
+.hero-photo.cycling .hp-a{animation:ha 5s ease-in-out infinite;}
+.hero-photo.cycling .hp-b{animation:hb 5s ease-in-out infinite;}
+@keyframes ha{0%{opacity:1;}38%{opacity:1;}50%{opacity:0;}88%{opacity:0;}100%{opacity:1;}}
+@keyframes hb{0%{opacity:0;}38%{opacity:0;}50%{opacity:1;}88%{opacity:1;}100%{opacity:0;}}
+.sweep{
+  position:absolute;top:0;bottom:0;left:0;
+  width:32%;z-index:3;pointer-events:none;
+  background:linear-gradient(to right,transparent,rgba(255,255,255,.88) 50%,transparent);
+  transform:translateX(-250%) skewX(14deg);opacity:0;
+}
+.hero-photo.cycling .sweep{animation:sw 3s ease-in-out infinite;}
+@keyframes sw{
+  0%{transform:translateX(-250%) skewX(14deg);opacity:0;}
+  10%{opacity:.9;}55%{opacity:.9;}
+  90%{opacity:0;}100%{transform:translateX(450%) skewX(14deg);opacity:0;}
+}
+@media(max-width:760px){
+  #hero{grid-template-columns:1fr;}
+  .hero-photo{order:-1;min-height:55vw;height:55vw;}
+  .hero-photo::before{background:linear-gradient(180deg,var(--white) 0%,transparent 14%);}
+  .hero-glow{top:2%;right:10%;width:70%;height:60%;}
+  .hero-text{padding-top:20px;}
+}
+
+/* ────── SECTION WRAPPER ────── */
+.section{padding:clamp(60px,11vw,130px) clamp(20px,6vw,80px);}
+.section-inner{max-width:1100px;margin:0 auto;}
+.section-head{margin-bottom:clamp(36px,6vw,64px);}
+.eyebrow{
+  font-family:'Jost',sans-serif;font-weight:300;font-size:12px;
+  letter-spacing:.28em;text-transform:uppercase;color:var(--wine);
+  margin-bottom:10px;
+}
+.section-title{
+  font-family:'Cormorant Garamond',serif;font-weight:400;
+  font-size:clamp(40px,5.5vw,68px);color:var(--graphite);line-height:1;
+}
+.section-title em{font-style:italic;color:var(--wine);}
+hr.divider{border:none;border-top:1px solid var(--line);margin:clamp(50px,8vw,90px) 0;}
+
+/* ────── ABOUT ────── */
+#about{background:var(--cream);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,80px);align-items:center;}
+.about-img-wrap img{
+  width:100%;border-radius:24px;
+  box-shadow:0 32px 80px -24px var(--wine-glow),0 8px 24px rgba(0,0,0,.07);
+}
+.about-text{display:flex;flex-direction:column;gap:20px;}
+.about-text p{
+  font-family:'Cormorant Garamond',serif;font-weight:300;
+  font-size:clamp(18px,1.6vw,22px);line-height:1.75;color:var(--graphite-soft);
+}
+.about-text strong{font-weight:500;color:var(--graphite);}
+@media(max-width:760px){.about-grid{grid-template-columns:1fr;}}
+
+/* ────── SERVIÇOS ────── */
+#services{background:var(--white);}
+.services-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:clamp(1px,0.15vw,2px);border:1px solid var(--line);
+}
+.service-card{
+  padding:clamp(24px,3vw,36px);
+  border:1px solid var(--line);
+  transition:background .25s;
+}
+.service-card:hover{background:var(--blush);}
+.sc-icon{
+  width:36px;height:36px;margin-bottom:14px;
+  display:flex;align-items:center;justify-content:center;
+}
+.sc-icon svg{width:26px;height:26px;stroke:var(--wine);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.sc-name{
+  font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;
+  font-size:clamp(18px,1.5vw,22px);color:var(--graphite);margin-bottom:8px;
+}
+.sc-desc{
+  font-family:'Jost',sans-serif;font-weight:300;font-size:13px;
+  line-height:1.65;color:var(--graphite-soft);
+}
+
+/* ────── TRATAMENTOS (foto) ────── */
+#treatment{background:var(--blush);}
+.treatment-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,70px);align-items:center;}
+.treatment-img img{width:100%;border-radius:20px;box-shadow:0 24px 60px -16px rgba(30,28,26,.18);}
+.treatment-text{display:flex;flex-direction:column;gap:18px;}
+.treatment-text p{
+  font-family:'Cormorant Garamond',serif;font-weight:300;
+  font-size:clamp(17px,1.5vw,20px);line-height:1.8;color:var(--graphite-soft);
+}
+@media(max-width:760px){.treatment-grid{grid-template-columns:1fr;}}
+
+/* ────── ANTES & DEPOIS ────── */
+#results{background:var(--white);}
+.results-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:clamp(18px,3vw,36px);
+}
+.result-item{}
+.result-label{
+  font-family:'Jost',sans-serif;font-weight:300;font-size:11px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--graphite-soft);
+  margin-bottom:10px;
+}
+
+/* slider antes/depois */
+.slider-wrap{
+  position:relative;overflow:hidden;border-radius:16px;
+  cursor:col-resize;user-select:none;-webkit-user-select:none;
+  box-shadow:0 16px 48px -12px rgba(30,28,26,.14);
+}
+.slider-wrap img{
+  display:block;width:100%;aspect-ratio:4/3;object-fit:cover;
+}
+.sl-after{
+  position:absolute;inset:0;
+  clip-path:inset(0 50% 0 0);
+  transition:clip-path 0s;
+}
+.sl-after img{height:100%;object-fit:cover;}
+.sl-handle{
+  position:absolute;top:0;bottom:0;left:50%;
+  transform:translateX(-50%);
+  width:3px;background:var(--white);
+  display:flex;align-items:center;justify-content:center;
+  cursor:col-resize;
+}
+.sl-circle{
+  width:40px;height:40px;border-radius:50%;
+  background:var(--white);box-shadow:0 4px 16px rgba(0,0,0,.28);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.sl-circle svg{width:20px;height:20px;stroke:var(--graphite);stroke-width:2;fill:none;}
+.sl-badge{
+  position:absolute;padding:4px 10px;
+  font-family:'Jost',sans-serif;font-size:10px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;
+  border-radius:99px;
+}
+.sl-badge.before{top:12px;left:12px;background:rgba(255,255,255,.92);color:var(--graphite);}
+.sl-badge.after{top:12px;right:12px;background:var(--wine);color:var(--white);}
+
+/* ────── CTA ────── */
+#cta{
+  background:var(--graphite);
+  padding:clamp(60px,9vw,110px) clamp(20px,6vw,80px);
+  text-align:center;
+}
+.cta-title{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;
+  font-size:clamp(40px,6vw,78px);color:var(--white);margin-bottom:16px;line-height:1.05;
+}
+.cta-title em{color:var(--wine-light);font-style:normal;}
+.cta-sub{
+  font-family:'Jost',sans-serif;font-weight:300;font-size:clamp(14px,1.2vw,16px);
+  color:rgba(255,255,255,.55);margin-bottom:clamp(28px,4vw,44px);letter-spacing:.06em;
+}
+.btn-whats{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'Jost',sans-serif;font-weight:500;font-size:13px;
+  letter-spacing:.16em;text-transform:uppercase;
+  padding:16px 38px;background:#25D366;color:var(--white);text-decoration:none;
+  border-radius:2px;transition:opacity .25s;
+}
+.btn-whats:hover{opacity:.9;}
+.btn-whats svg{width:20px;height:20px;fill:white;}
+
+/* ────── FOOTER ────── */
+footer{
+  padding:clamp(24px,4vw,40px) clamp(20px,6vw,80px);
+  border-top:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+}
+.footer-brand{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:var(--graphite);}
+.footer-brand em{color:var(--wine);font-style:normal;}
+.footer-copy{font-family:'Jost',sans-serif;font-weight:300;font-size:12px;color:var(--graphite-soft);}
+.footer-map{
+  font-family:'Jost',sans-serif;font-weight:300;font-size:12px;
+  color:var(--graphite-soft);text-decoration:none;
+  display:inline-flex;align-items:center;gap:6px;transition:color .2s;
+}
+.footer-map:hover{color:var(--wine);}
+.footer-map svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.6;flex-shrink:0;}
+
+/* ────── REVEAL ────── */
+.reveal{opacity:0;transform:translateY(30px) scale(.975);filter:blur(5px);transition:opacity 1s var(--ease),transform 1s var(--ease),filter 1s var(--ease);transition-delay:var(--d,0s);}
+.reveal.in{opacity:1;transform:translateY(0) scale(1);filter:blur(0);}
+
+/* ────── ENTRADA DO HERO (dispara junto ao fim do loader) ────── */
+.hero-in{opacity:0;transform:translateY(22px);transition:opacity 1s var(--ease),transform 1s var(--ease);transition-delay:var(--d,0s);}
+.hero-in.in{opacity:1;transform:translateY(0);}
+.hero-photo.hero-in{transform:translateY(14px) scale(.97);}
+.hero-photo.hero-in.in{transform:translateY(0) scale(1);}
+
+/* ────── ACESSIBILIDADE ────── */
+@media(prefers-reduced-motion:reduce){
+  .reveal{transition:none!important;opacity:1!important;transform:none!important;filter:none!important;}
+  .hero-in{transition:none!important;opacity:1!important;transform:none!important;}
+  .hero-photo.cycling .hp-a,.hero-photo.cycling .hp-b{animation:none!important;}
+  .sweep{display:none!important;}
+  .hero-glow{opacity:1!important;transform:none!important;transition:none!important;}
+  .tb-stars .star{opacity:1!important;transform:none!important;transition:none!important;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <p class="ld-logo">Tainá Marques</p>
+  <div class="ld-track"><div class="ld-bar" id="lbar"></div></div>
+  <p class="ld-caption">Revelando sua melhor versão</p>
+</div>
+
+<!-- NAV -->
+<nav id="nav" class="hero-in" style="--d:0s">
+  <a href="#" class="nav-brand">Tainá <em>Marques</em></a>
+  <ul class="nav-links">
+    <li><a href="#about">Sobre</a></li>
+    <li><a href="#services">Serviços</a></li>
+    <li><a href="#results">Resultados</a></li>
+  </ul>
+  <a href="https://wa.me/5517992095667" class="nav-cta" target="_blank">Agendar</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-text">
+    <div class="trust-bar hero-in" id="trustBar" style="--d:.22s">
+      <div class="tb-rating">
+        <div class="tb-stars" id="tbStars">
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .9l3.09 6.26 6.91 1-5 4.87 1.18 6.88L12 16.6l-6.18 3.25L7 12.98l-5-4.87 6.91-1z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .9l3.09 6.26 6.91 1-5 4.87 1.18 6.88L12 16.6l-6.18 3.25L7 12.98l-5-4.87 6.91-1z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .9l3.09 6.26 6.91 1-5 4.87 1.18 6.88L12 16.6l-6.18 3.25L7 12.98l-5-4.87 6.91-1z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .9l3.09 6.26 6.91 1-5 4.87 1.18 6.88L12 16.6l-6.18 3.25L7 12.98l-5-4.87 6.91-1z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 .9l3.09 6.26 6.91 1-5 4.87 1.18 6.88L12 16.6l-6.18 3.25L7 12.98l-5-4.87 6.91-1z"/></svg>
+        </div>
+        <span class="tb-score" id="tbScore">0.0</span>
+        <span class="tb-reviews">(3 avaliações)</span>
+      </div>
+      <span class="tb-sep"></span>
+      <div class="tb-status" id="tbStatus">
+        <span class="tb-dot" id="tbDot"></span>
+        <span id="tbStatusText">verificando horário…</span>
+      </div>
+      <span class="tb-sep"></span>
+      <a href="https://instagram.com/tainamarques_estetica" target="_blank" rel="noopener" class="tb-link">
+        <svg viewBox="0 0 24 24"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.3"/><circle cx="17.4" cy="6.6" r="1"/></svg>
+        @tainamarques_estetica
+      </a>
+      <span class="tb-sep"></span>
+      <a href="https://maps.app.goo.gl/YEnGdV56urXEofNb7" target="_blank" rel="noopener" class="tb-link">
+        <svg viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.3"/></svg>
+        Cajobi, SP
+      </a>
+    </div>
+    <p class="h-eyebrow hero-in" style="--d:.34s">Clínica de Estética · Cajobi — SP</p>
+    <h1 class="h-title hero-in" style="--d:.44s">
+      Sua pele<br>
+      merece<br>
+      <em>cuidado.</em>
+    </h1>
+    <p class="h-sub hero-in" style="--d:.58s">Tratamentos estéticos com excelência técnica, cuidado real e resultados que transformam.</p>
+    <div class="h-actions hero-in" style="--d:.7s">
+      <a href="https://wa.me/5517992095667" class="btn-primary" target="_blank">Agendar consulta</a>
+      <a href="#results" class="btn-ghost">Ver resultados</a>
+    </div>
+  </div>
+  <div class="hero-photo hero-in" id="heroPhoto" style="--d:.1s">
+    <div class="hero-glow"></div>
+    <img class="hp-a" src="data:image/webp;base64,UklGRjYbAQBXRUJQVlA4WAoAAAAQAAAAzwIApAMAQUxQSMk2AAANz8I4kqQ2df6A/KNSQHj2rwgiIr9mF/a0NzDRCgGUnjCYfmMwQ8B+/NyyOXzclX4iECPZrdsMHg2ACIT+C9YHxJsUENH/CZCjnlKHz0hIGcW1Up7Nfgc7utZ6EbM9FZ/Ep66GbLQbyuWrIRUj0BZG/ri0JTXiAMCjPY+JilZhBExLo5U5ULpa7hOFDiomtOWpA1LeSfcR1caeALIle0CkemJmv2NnzexArHVKzMS9oRN3398yqSKGBJ9izr8kFwjk0yML4t+pD89D++UKCnkB2StJkuyHZNGHK0jkIRfD4tpc9we8j21AlEcAuQJGBACbyhaJPniQ4MlJFImPc4IMIHkQQNAUvhLs/yyohAV32RwGAdC2CQT/pvPYERARExAjRBB3ShKZV0aLE7p4Gy4c4mVw5RE
