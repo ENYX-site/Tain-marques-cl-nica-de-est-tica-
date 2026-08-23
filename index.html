@@ -394,8 +394,7 @@ footer{
 <body>
 
 <!-- ================= INÍCIO DO POP-UP DE PRÉVIA ================= -->
-<style>
-  /* Esconde o site inteiro enquanto a prévia estiver ativa */
+<style id="preview-style">
   body > *:not(#preview-overlay) {
     display: none !important;
   }
@@ -433,23 +432,22 @@ footer{
 
 <script>
   function liberarSite() {
-    // Revela todo o conteúdo do site
-    const styleBlock = document.querySelector('style:has(body > *:not(#preview-overlay))');
-    if (styleBlock) styleBlock.remove();
+    // Remove o estilo que escondia o site de forma direta e segura
+    const estiloTravas = document.getElementById('preview-style');
+    if (estiloTravas) estiloTravas.remove();
     
     // Some com o pop-up
     document.getElementById('preview-overlay').style.display = 'none';
     
-    // Reinicia a rolagem no topo
+    // Manda pro topo e acorda o site
     window.scrollTo(0, 0);
-    
-    // Acorda as animações e scripts do site
     window.dispatchEvent(new Event('resize'));
     window.dispatchEvent(new Event('scroll'));
   }
 </script>
 <!-- ================= FIM DO POP-UP DE PRÉVIA ================= -->
 
+  
 <!-- LOADER -->
 <div id="loader">
   <p class="ld-logo">Tainá Marques</p>
