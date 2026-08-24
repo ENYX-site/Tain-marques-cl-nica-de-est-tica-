@@ -394,7 +394,7 @@ footer{
 <body>
 
 <!-- ================= INÍCIO DO POP-UP DE PRÉVIA ================= -->
-<style id="preview-style" translate="no">
+<style id="preview-style" class="notranslate">
   body > *:not(#preview-overlay) {
     display: none !important;
   }
@@ -404,7 +404,7 @@ footer{
   }
 </style>
 
-<div id="preview-overlay" translate="no" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10, 10, 12, 0.85); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); z-index: 99999999; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 24px; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+<div id="preview-overlay" class="notranslate" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10, 10, 12, 0.85); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); z-index: 99999999; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 24px; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
   
   <div style="background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.25); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border-radius: 28px; padding: 40px 24px; max-width: 360px; width: 90%; box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);">
     
@@ -430,12 +430,17 @@ footer{
   </div>
 </div>
 
-<script translate="no">
+<script class="notranslate">
   function liberarSite() {
-    const estiloTravas = document.getElementById('preview-style');
-    if (estiloTravas) estiloTravas.remove();
+    var estiloTravas = document.getElementById('preview-style');
+    if (estiloTravas) {
+      estiloTravas.remove();
+    }
     
-    document.getElementById('preview-overlay').style.display = 'none';
+    var overlay = document.getElementById('preview-overlay');
+    if (overlay) {
+      overlay.style.display = 'none';
+    }
     
     window.scrollTo(0, 0);
     window.dispatchEvent(new Event('resize'));
